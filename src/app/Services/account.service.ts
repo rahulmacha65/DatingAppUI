@@ -28,6 +28,18 @@ export class AccountService {
     )
   }
 
+  userRegister(user:any):Observable<IUser>{
+    return this._http.post<IUser>(this.baseUrl+'register',user).pipe(
+      map(user=>{
+        if(user){
+          localStorage.setItem('user',JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+        return user;
+      })
+    )
+  }
+
   setCurrentUser(user:IUser){
     this.currentUserSource.next(user);
   }

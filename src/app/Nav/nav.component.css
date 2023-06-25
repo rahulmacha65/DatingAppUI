@@ -1,0 +1,25 @@
+.navbar-brand{
+    margin: auto;
+    position: absolute;
+    top: 6%;
+    left: 45%;
+}
+.dropdown{
+    right:5rem;
+}
+.dropdown-menu{
+    margin-left:-50px;
+}
+@media (max-width:800px){
+    .container{
+        margin:0;
+        padding:0;
+    }
+    .dropdown{
+        position:absolute;
+        right:15px;
+    }
+    .navbar-brand{
+        left: 35%;
+    }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from './Services/account.service';
 import { IUser } from './Models/User';
+import { AccountService } from './Services/account.service';
 
 
 @Component({
@@ -10,8 +10,7 @@ import { IUser } from './Models/User';
 })
 export class AppComponent implements OnInit {
   
-  constructor(private _accountService:AccountService){}
-
+  constructor(public _accountService:AccountService){}
   ngOnInit(): void {
     this.setCurrentUser();
   }

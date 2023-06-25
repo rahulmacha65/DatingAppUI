@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AccountService } from '../Services/account.service';
 import { Observable,of } from 'rxjs';
 import { IUser } from '../Models/User';
@@ -10,27 +10,19 @@ import { IUser } from '../Models/User';
 })
 export class NavComponent implements OnInit {
 
-  loginModel:any={};
+
+  userName:string="";
 
   constructor(public _loginService:AccountService) { }
 
   ngOnInit(): void {
+    const user = localStorage.getItem('user');
+    if(user){
+      this.userName = JSON.parse(user).userName;
+    }
   }
 
-  login(){
-    this._loginService.userLogin(this.loginModel).subscribe({
-      next:(res)=>{
-        console.log(res);
-      },
-      error:(err)=>{
-        console.log(err);
-      },
-      complete:()=>{
-        console.log("Login Successfully Completed.");
-      }
-    })
-  }
-
+  
   logout(){
     this._loginService.userLogout();
   }
