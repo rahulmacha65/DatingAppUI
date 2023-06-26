@@ -19,7 +19,7 @@
                     {{registrationStatus}}
                 </div>
                 <div>
-                    <button class="btn btn-success me-2">Register</button>
+                    <button class="btn btn-success me-2" [disabled]="registerForm.valid">Register</button>
                     <button class="btn btn-warning" type="button" routerLink="/home">Home</button>
                 </div>
             </form>

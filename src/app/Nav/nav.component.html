@@ -7,26 +7,26 @@
         <div class="navbar-collapse" id="navbarSupportedContent" >
             <ul class="navbar-nav me-auto mb-2 md-md-0 w-50 bg-dark" *ngIf="_loginService.currentUser$ | async">
                 <li class="nav-item">
-                    <a class="nav-link active fw-bold" routerLink="/home">Home</a>
+                    <a class="nav-link active fw-bold" routerLink="/home" routerLinkActive="active">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Matches</a>
+                    <a class="nav-link fw-bold" routerLink="/members" routerLinkActive="active">Matches</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Lists</a>
+                    <a class="nav-link fw-bold" routerLink="/lists" routerLinkActive="active">Lists</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold">Messages</a>
+                    <a class="nav-link fw-bold" routerLink="/messages" routerLinkActive="active">Messages</a>
                 </li>
             </ul>
         </div>
-        <div class="navbar-brand fw-bold text-center text-warning">Dating App</div>
+        <div class="navbar-brand fw-bold text-center text-warning" routerLink="/home">Dating App</div>
     </div>
 
     <div class="dropdown" *ngIf="_loginService.currentUser$ | async" >
         <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            {{userName | titlecase}}
+            {{userName}}
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item">Edit Profile</a></li>

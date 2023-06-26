@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
       next:(res)=>{
         console.log(res);
         this.registrationStatus=null;
-        this.route.navigate(["/home"]);
+        this.route.navigateByUrl("/home");
       },
       error:(err)=>{
         console.log(err);

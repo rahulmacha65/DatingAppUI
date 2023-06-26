@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from '../Services/account.service';
 import { IUser } from '../Models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginModel:any={};
   loginStatus:string|null=null;
-  constructor(public _accountService:AccountService){}
+  constructor(public _accountService:AccountService,private route:Router){}
 
   ngOnInit(): void {
     
@@ -22,8 +23,8 @@ export class LoginComponent implements OnInit {
   login(){
     this._accountService.userLogin(this.loginModel).subscribe({
       next:(res)=>{
-        console.log(res);
         this.loginStatus=null;
+        this.route.navigateByUrl("/members");
       },
       error:(err)=>{
         console.log(err);
