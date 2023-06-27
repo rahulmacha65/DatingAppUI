@@ -7,6 +7,7 @@ import { MemberListComponent } from './member/member-list/member-list.component'
 import { MemberDetailsComponent } from './member/member-details/member-details.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
     path:'register',component:RegisterComponent
   },
   {
-    path:'members',component:MemberListComponent
+    path:'members',component:MemberListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'members/:id',component:MemberDetailsComponent
