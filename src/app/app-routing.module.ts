@@ -8,6 +8,9 @@ import { MemberDetailsComponent } from './member/member-details/member-details.c
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ErrorsComponent } from './errors/errors.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 const routes: Routes = [
   {
@@ -34,6 +37,15 @@ const routes: Routes = [
   },
   {
     path:'messages',component:MessagesComponent
+  },
+  {
+    path:'error',component:ErrorsComponent
+  },
+  {
+    path:'not-found',component:NotFoundComponent
+  },
+  {
+    path:'server-error',component:ServerErrorComponent
   },
   {
     path:'**',redirectTo:'home',pathMatch:'full'
