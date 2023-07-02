@@ -30,7 +30,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'members/:id',component:MemberDetailsComponent
+    path:'members/:userName',component:MemberDetailsComponent
   },
   {
     path:'lists',component:ListsComponent
