@@ -21,6 +21,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './member-edit/member-edit.component';
+
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     MessagesComponent,
     ErrorsComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,

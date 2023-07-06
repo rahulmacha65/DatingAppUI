@@ -14,6 +14,7 @@ export class MemberDetailsComponent implements OnInit {
   member!:Member;
   galleryOptions:NgxGalleryOptions[]=[];
   galleryImages:NgxGalleryImage[]=[]
+  spinner:boolean=true;
 
   constructor(private memberService:MembersService,private route:ActivatedRoute) { }
 
@@ -39,8 +40,11 @@ export class MemberDetailsComponent implements OnInit {
       next:(res)=> {
         this.member=res;
         this.galleryImages = this.getImages();
+        this.spinner=false;
       },
-      error:(err)=>console.log(err)
+      error:(err)=>{
+        this.spinner=false;
+      }
     })
   }
 

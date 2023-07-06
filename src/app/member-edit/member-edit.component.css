@@ -1,0 +1,47 @@
+.img-thumbnail{
+    margin:25px;
+    width:85%;
+    height:85%;
+}
+.card-body{
+    padding:0 25px;
+}
+
+.card-footer{
+    padding:10px 15px;
+    background-color: #fff;
+    border-top: none;
+}
+
+@media (max-width:700px) {
+    .card{
+        width:100vw;
+    }
+    .col-8{
+        width:100vw;
+        height:100vh;
+    }
+    .message{
+        height: 10vh !important;
+    }
+    .header{
+        width:100%;
+    }
+}
+.tab-content{
+    margin-top:20px;
+    padding:10px;
+}
+
+.nav-tabs{
+    background-color:white !important;
+}
+.nav-link{
+    color:navy;
+    font-weight: bold;
+    background-color: cadetblue;
+}
+.ngx-gallery{
+    display: inline-block;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,86 @@
+<div class="spinner" *ngIf="spinner">
+    <div class="spinner-border text-primary">
+    </div>
+</div>
+<div class="row" *ngIf="member" style="margin-top:80px;margin-left:10px">
+    <div class="col-4 header">
+        <h1>Your Profile</h1>
+    </div>
+    <div class="col-8 message">
+        <div class="alert alert-info pb-0" *ngIf="Editform.dirty">
+            <p>
+                <strong>Information:</strong>
+                You have made changes. Any unsaved changes will be lost
+            </p>
+        </div>
+        <div class="alert alert-success pb-0" *ngIf="updatedStatus && !Editform.dirty">
+            <p>
+                <strong>{{updatedStatus}}</strong>
+            </p>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
+                class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Location:</strong>
+                    <p>{{member.city}}, {{member.country}}</p>
+                </div>
+                <div>
+                    <strong>Age:</strong>
+                    <p>{{member.age}}</p>
+                </div>
+                <div>
+                    <strong>Last active:</strong>
+                    <p>{{member.lastActive}}</p>
+                </div>
+                <div>
+                    <strong>Member since:</strong>
+                    <p>{{member.created}}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" [disabled]="!Editform.dirty" form="Editform" class="btn btn-success">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 p-0">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                    role="tab" aria-controls="home" aria-selected="true">About {{member.knownAs}}</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
+                    role="tab" aria-controls="contact" aria-selected="false">Edit Photos</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form #Editform="ngForm" id="Editform" (ngSubmit)="updateMember()">
+                    <h4 class="mt-2">Description :</h4>
+                    <textarea class="form-control" name="introduction" rows="6"
+                        [(ngModel)]="member.introduction"></textarea>
+                    <h4 class="mt-2">Looking for :</h4>
+                    <textarea class="form-control" name="lookingFor" rows="6"
+                        [(ngModel)]="member.lookingFor"></textarea>
+                    <h4 class="mt-2">Interests :</h4>
+                    <textarea class="form-control" name="interests" rows="6" [(ngModel)]="member.interests"></textarea>
+                    <h4 class="mt-2">Location Details:</h4>
+                    <div class="d-flex flex-row align-item-center">
+                        <label for="city">City:</label>
+                        <input type="text" [(ngModel)]="member.city" name="city" class="form-control mx-2">
+                        <label for="country">Country:</label>
+                        <input type="text" [(ngModel)]="member.country" name="country" class="form-control mx-2">
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
+                Photos goes here
+            </div>
+        </div>
+    </div>
+</div>

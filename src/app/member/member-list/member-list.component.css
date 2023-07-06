@@ -36,3 +36,17 @@
 .animate{
     transition:all 0.3s ease-in-out;
 }
+
+@media (max-width:500px) {
+    .card{
+        width:70%;
+    }
+    .member-icons{
+        position: relative;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
+        opacity: 1;
+    }
+}

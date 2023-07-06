@@ -11,7 +11,7 @@ export class MemberListComponent implements OnInit {
 
   members:Member[]=[];
   constructor(private memberService:MembersService) { }
-
+  spinner:boolean=true;
   ngOnInit(): void {
     this.loadMembers();
   }
@@ -20,8 +20,11 @@ export class MemberListComponent implements OnInit {
     this.memberService.getMembers().subscribe({
       next:(res)=>{
         this.members=res;
+        this.spinner=false;
       },
-      error:(err)=>console.log(err)
+      error:(err)=>{
+        this.spinner=false;
+      }
     })
   }
 }

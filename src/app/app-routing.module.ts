@@ -11,6 +11,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ErrorsComponent } from './errors/errors.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { MemberEditComponent } from './member-edit/member-edit.component';
+import { PreventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -37,6 +39,9 @@ const routes: Routes = [
   },
   {
     path:'messages',component:MessagesComponent
+  },
+  {
+    path:'member/edit',component:MemberEditComponent,canDeactivate:[PreventUnsavedChangesGuard]
   },
   {
     path:'error',component:ErrorsComponent
