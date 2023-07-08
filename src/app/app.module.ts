@@ -22,6 +22,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MemberEditComponent } from './member-edit/member-edit.component';
+import { PhotoEditorComponent } from './member/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -39,7 +41,8 @@ import { MemberEditComponent } from './member-edit/member-edit.component';
     ErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { MemberEditComponent } from './member-edit/member-edit.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorHandlerInterceptor,multi:true},

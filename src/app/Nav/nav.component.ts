@@ -13,13 +13,16 @@ export class NavComponent implements OnInit,DoCheck {
 
 
   userName:string="";
+  profilePhoto:string="";
 
   constructor(public _loginService:AccountService,private route:Router) {}
 
   ngDoCheck(): void {
     const user = localStorage.getItem('user')
     if(!user) return;
-    this.userName = JSON.parse(user).userName;
+    const parsedUser = JSON.parse(user);
+    this.userName = parsedUser.userName;
+    this.profilePhoto = parsedUser.photoUrl
 
   }
 
