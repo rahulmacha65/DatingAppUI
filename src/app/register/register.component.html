@@ -4,6 +4,25 @@
         <div class="card-body">
             <form class="row g-2 p-md-5 p-2" #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
                 <div class="mb-3">
+                    <div class="d-md-flex">
+                        <label class="space fw-bold"> I am :</label>
+                        <label for="genderM" class="space">
+                            <input type="radio" class="form-check-input" id="genderM" name="gender" #gender="ngModel" value="male"
+                                [(ngModel)]="registerModel.gender" required>
+                            male
+                        </label>
+                        <label for="genderF" >
+                            <input type="radio" class="form-check-input" id="genderF" name="gender" #gender="ngModel" value="female"
+                                [(ngModel)]="registerModel.gender" required>
+                            female
+                        </label>
+                    </div>
+                    <div class="text-danger" *ngIf="gender.hasError('required') && gender.touched">
+                        <sup>*</sup>Please select your gender.
+                    </div>
+                </div>
+
+                <div class="mb-3">
                     <input type="text" class="form-control" name="username" [(ngModel)]="registerModel.username"
                         placeholder="Username" #username="ngModel" required minlength="4">
                     <div class="text-danger" *ngIf="username.hasError('required') && username.touched">
@@ -15,13 +34,58 @@
                 </div>
 
                 <div class="mb-3">
+                    <input type="text" class="form-control" name="knownAs" [(ngModel)]="registerModel.knownAs"
+                        placeholder="KnownAs" #knownAs="ngModel" required>
+                    <div class="text-danger" *ngIf="knownAs.hasError('required') && knownAs.touched">
+                        <sup>*</sup> KnownAs is required
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input type="date" class="form-control" name="dateofBirth" [(ngModel)]="registerModel.dateofBirth"
+                        placeholder="DateofBirth" #dateofBirth="ngModel" required (blur)="maxAge(registerModel.dateofBirth)">
+                    <div class="text-danger" *ngIf="dateofBirth.hasError('required') && dateofBirth.touched ">
+                        <sup>*</sup> Dateofbirth is required
+                    </div>
+                    <div class="text-danger" *ngIf="ageLimit">
+                        <sup>*</sup>Under aged are not allowed.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="city" [(ngModel)]="registerModel.city"
+                        placeholder="city" #city="ngModel" required>
+                    <div class="text-danger" *ngIf="city.hasError('required') && city.touched">
+                        <sup>*</sup> City is required
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="country" [(ngModel)]="registerModel.country"
+                        placeholder="Country" #country="ngModel" required>
+                    <div class="text-danger" *ngIf="country.hasError('required') && country.touched">
+                        <sup>*</sup> Country is required
+                    </div>
+                </div>
+
+                <div class="mb-3">
                     <input type="password" class="form-control" name="password" [(ngModel)]="registerModel.password"
-                        placeholder="Password" required minlength="4" #password="ngModel">
+                        placeholder="Password" required minlength="4" maxlength="8" #password="ngModel"
+                        (keyup)="passwordChange()">
                     <div class="text-danger" *ngIf="password.hasError('required') && password.touched">
-                        <sup>*</sup> Password is required
+                        <sup>*</sup> Password is required.
                     </div>
                     <div class="text-danger" *ngIf="password.hasError('minlength') && password.touched">
-                        <sup>*</sup> Password shoud be atleast 4 characters long.
+                        <sup>*</sup> Password shoud be atleast 4-8 characters.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input class="form-control" name="confirmPassword" [(ngModel)]="registerModel.confirmPassword"
+                        placeholder="Confirm password" required minlength="4" #confirmPassword="ngModel"
+                        (keyup)="matchPassword(registerModel.confirmPassword,registerModel.password)">
+                    <div class="text-danger" *ngIf="customValidation">
+                        <sup>*</sup> Password should match.
                     </div>
                     <div class="alert alert-danger" *ngIf="registrationStatus">
                         {{registrationStatus}}
@@ -29,7 +93,8 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-success me-2" [disabled]="!registerForm.valid">Register</button>
+                    <button class="btn btn-success me-2"
+                        [disabled]="!registerForm.valid || customValidation || ageLimit">Register</button>
                     <button class="btn btn-warning" type="button" routerLink="/home">Home</button>
                 </div>
             </form>

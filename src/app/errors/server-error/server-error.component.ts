@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ServerErrorComponent implements OnInit {
 
   error:any;
+  photo!:string;
   constructor(private _router:Router)
   { 
     const navigation = this._router.getCurrentNavigation();
@@ -16,6 +17,7 @@ export class ServerErrorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.photo="./assests/image500jpg";
   }
 
 }

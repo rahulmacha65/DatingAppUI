@@ -24,7 +24,7 @@
     </div>
 
     <div class="dropdown" *ngIf="_loginService.currentUser$ | async" >
-        <img [src]="profilePhoto || './assests/user.png'" alt="user photo">
+        <img [src]="profilePhoto || './assets/user.png'" alt="user photo">
         <button class="btn btn-warning dropdown-toggle ms-1" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
             {{userName}}

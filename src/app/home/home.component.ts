@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../Services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ export class HomeComponent implements OnInit {
   
 
 
-  constructor() { }
+  constructor(public _loginService:AccountService) { }
 
   ngOnInit(): void {
   }
