@@ -3,8 +3,42 @@
     </div>
 </div>
 <div class="container" style="margin:100px">
+    <div class="text-center mt-3" *ngIf="pagination">
+        <h2 class="fw-bold">Your matches - {{pagination.totalItems}} found</h2>
+    </div>
+    <div class="container mt-3" *ngIf="userParams">
+        <form  #form="ngForm" class="d-md-flex mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
+            <div class="d-flex mx-2 justify-content-end">
+                <label  class="col-form-label">Age from:</label>
+                <input type="number" class="form-control ms-1" 
+                style="width:70px" name="minAge" [(ngModel)]="userParams.minAge">
+            </div>
+            <div class="d-flex mx-2 justify-content-end">
+                <label  class="col-form-label">Age to:</label>
+                <input type="number" class="form-control ms-1" 
+                style="width:70px" name="maxAge" [(ngModel)]="userParams.maxAge">
+            </div>
+            <div class="d-flex mx-2 justify-content-end">
+                <label  class="col-form-label me-2">Show:</label>
+                <select name="gender" style="width:130px" class="form-select ms-1"
+                [(ngModel)]="userParams.gender">
+                    <option *ngFor="let gender of genderList" [value]="gender.value">
+                        {{gender.display}}
+                    </option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary ms-1" type="submit">
+                    Apply Filters
+                </button>
+                <button class="btn btn-danger ms-1" type="submit" (click)="resetFilters()">
+                    Reset Filters
+                </button>
+            </div>
+        </form>
+    </div>
     <div class="row">
-        <div class="col-sm-auto"  *ngFor="let member of members">
+        <div class="col-sm-auto" *ngFor="let member of members">
             <div class="card mb-4">
                 <div class="card-img-wrapper">
                     <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top">
@@ -29,11 +63,29 @@
                 <div class="card-body p-1">
                     <h6 class="card-title text-center mb-1">
                         <i class="fa fa-user me-2"></i>
-                        {{member.knownAs}}
+                        {{member.knownAs}}, {{member.age}}
                     </h6>
                     <p class="card-text text-muted text-center">{{member.city}}</p>
                 </div>
             </div>
         </div>
     </div>
+    <nav *ngIf="totalPages.length>0">
+        <ul class="pagination pagination-md justify-content-center">
+            <li class="page-item">
+                <a class="page-link" aria-label="Previous" (click)="pageChanged(activePage-1)">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" aria-current="page" *ngFor="let num of totalPages"
+                [ngClass]="activePage==num?'active':''">
+                <a class="page-link" (click)="pageChanged(num)">{{num}}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" aria-label="Next" (click)="pageChanged(activePage+1)">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>

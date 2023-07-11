@@ -26,18 +26,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
               const navigationExtras:NavigationExtras = {state:{error:error.error}}
               this._route.navigateByUrl("/server-error",navigationExtras);
               break;
-            case 400:
-              const badRequest:string|null = error.error;
-              if(badRequest!=null) throw badRequest;
-              break;
-            case 401:
-              const unAuthorized:string|null = error.error;
-              if(unAuthorized!=null) throw unAuthorized;
-              break;
-            default:
-              const unHandled:string|null="Something went wrong..";
-              if(unHandled!=null) throw unHandled;
-              break;
           }
         }
         throw error;

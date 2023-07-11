@@ -21,7 +21,7 @@ export class NavComponent implements OnInit,DoCheck {
     const user = localStorage.getItem('user')
     if(!user) return;
     const parsedUser = JSON.parse(user);
-    this.userName = parsedUser.userName;
+    this.userName = parsedUser.knownAs;
     this.profilePhoto = parsedUser.photoUrl
 
   }
