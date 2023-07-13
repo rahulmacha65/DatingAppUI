@@ -42,7 +42,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     NotFoundComponent,
     ServerErrorComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +51,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     FormsModule,
     BrowserAnimationsModule,
     NgxGalleryModule,
-    FileUploadModule
+    FileUploadModule,
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorHandlerInterceptor,multi:true},

@@ -20,19 +20,11 @@ export class MemberListComponent implements OnInit {
   totalPages:number[]=[];
   activePage:number=1;
   userParams!:UserParams;
-  user!:IUser;
   genderList = [{value:'male',display:'Males'},{value:'female',display:'Females'}];
 
-  constructor(private memberService:MembersService,private _accountService:AccountService) 
+  constructor(private memberService:MembersService) 
   { 
-    this._accountService.currentUser$.pipe(take(1)).subscribe({
-      next:user =>{
-        if(user){
-          this.userParams =new UserParams(user);
-          this.user = user;
-        }
-      }
-    })
+    this.userParams = this.memberService.getUserParams();
   }
   spinner:boolean=true;
 
@@ -41,6 +33,9 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers(){
+    if(this.userParams){
+      this.memberService.setUserParams(this.userParams);
+    }
     this.memberService.getMembers(this.userParams).subscribe({
       next:(res)=>{
         if(res.result && res.pagination){
@@ -58,10 +53,8 @@ export class MemberListComponent implements OnInit {
   }
 
   resetFilters(){
-    if(this.user){
-      this.userParams = new UserParams(this.user);
-      this.loadMembers();
-    }
+    this.userParams = this.memberService.resetUserParams()!;
+    this.loadMembers();
   }
 
   pageChanged(value:number){
@@ -77,4 +70,8 @@ export class MemberListComponent implements OnInit {
       this.totalPages.push(i);
     }
   }
+  lastActiveFilter(value:string){
+    this.userParams.orderBy = value;
+    this.loadMembers();
+  } 
 }
