@@ -1,1 +1,65 @@
-<p>lists works!</p>
+<div class="text-center mt-5">
+    <h2 class="fw-bolder text-light bg-primary">{{predicate === 'liked'?'Members I liked':'Members who liked me'}}</h2>
+</div>
+
+<div class="container mt-3">
+    <div class="d-md-flex">
+        <button class="btn btn-primary" value="liked" #action1 (click)="loadLikes(action1.value)">
+            Members I like
+        </button>
+        <button class="btn btn-success" value="likedBy" #action2 (click)="loadLikes(action2.value)">
+            Members liked me
+        </button>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm-auto" *ngFor="let member of members">
+            <div class="card mb-4">
+                <div class="card-img-wrapper">
+                    <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top">
+                    <ul class="list-inline member-icons animate text-center">
+                        <li class="list-inline-item">
+                            <button class="btn btn-primary" routerLink="/members/{{member.userName}}">
+                                <i class="fa fa-user"></i>
+                            </button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-primary">
+                                <i class="fa fa-heart"></i>
+                            </button>
+                        </li>
+                        <li class="list-inline-item">
+                            <button class="btn btn-primary">
+                                <i class="fa fa-envelope"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-1">
+                    <h6 class="card-title text-center mb-1">
+                        <i class="fa fa-user me-2"></i>
+                        {{member.knownAs}}, {{member.age}}
+                    </h6>
+                    <p class="card-text text-muted text-center">{{member.city}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav *ngIf="totalPages.length>0">
+        <ul class="pagination pagination-md justify-content-center">
+            <li class="page-item">
+                <a class="page-link" aria-label="Previous" (click)="pageChanged(activePage-1)">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" aria-current="page" *ngFor="let num of totalPages"
+                [ngClass]="activePage==num?'active':''">
+                <a class="page-link" (click)="pageChanged(num)">{{num}}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" aria-label="Next" (click)="pageChanged(activePage+1)">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

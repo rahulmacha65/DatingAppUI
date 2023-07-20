@@ -21,6 +21,9 @@ export class MemberListComponent implements OnInit {
   activePage:number=1;
   userParams!:UserParams;
   genderList = [{value:'male',display:'Males'},{value:'female',display:'Females'}];
+  likedSuccess:boolean=false;
+  likedError:boolean=false;
+  likedUserName:string="";
 
   constructor(private memberService:MembersService) 
   { 
@@ -74,4 +77,20 @@ export class MemberListComponent implements OnInit {
     this.userParams.orderBy = value;
     this.loadMembers();
   } 
+
+  addLike(member:Member){
+    this.memberService.addLike(member.userName).subscribe({
+      next:_=> {
+        this.likedError=false;
+        this.likedUserName=member.userName;
+        this.likedSuccess=true;
+        setTimeout(()=>{this.likedSuccess=false},3000)
+      },
+      error:(err)=> {
+        this.likedSuccess=false;
+        this.likedError=true;
+        setTimeout(()=>{this.likedError=false},3000)
+      }
+    })
+  }
 }

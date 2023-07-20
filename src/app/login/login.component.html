@@ -3,7 +3,7 @@
         <div class="card-header fs-3 fw-bold text-center">Sign In</div>
         <div class="card-body">
             <form class="row g-3 p-md-5" #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
-                <input class="form-control" type="text" placeholder="UserName" name="userName"
+                <input class="form-control" autofocus type="text" placeholder="UserName" name="userName"
                     [(ngModel)]="loginModel.userName" required #username="ngModel">
                 <div class="text-danger" *ngIf="username.errors?.['required'] && username.touched">
                     <sup>*</sup>Username is required.
