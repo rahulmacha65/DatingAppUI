@@ -22,8 +22,19 @@
     .navbar-brand{
         left: 35%;
     }
+    .bannerAdjuestmentlogin{
+        left:45%;
+    }
+}
+@media (max-width:450px) {
+    .bannerAdjuestmentlogin{
+        left:35%;
+    }
 }
 img{
     max-height: 50px;
     border: 2px solid white;
+}
+.bannerAdjuestmentlogout{
+    left:45%;
 }

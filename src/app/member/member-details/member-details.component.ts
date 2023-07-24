@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/Models/Member';
@@ -15,11 +15,19 @@ export class MemberDetailsComponent implements OnInit {
   galleryOptions:NgxGalleryOptions[]=[];
   galleryImages:NgxGalleryImage[]=[]
   spinner:boolean=true;
+  tabName:string="about"
 
   constructor(private memberService:MembersService,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadMember();
+    this.route.queryParams.subscribe({
+      next:params=>{
+        if(params['tab']){
+          this.tabName = params['tab'];
+        }
+      }
+    })
 
     this.galleryOptions = [
       {
@@ -59,5 +67,20 @@ export class MemberDetailsComponent implements OnInit {
       })
     }
     return imageUrl;
+  }
+
+  messageTab(){
+    this.tabName="message";
+  }
+
+  interests(){
+    this.tabName="interests";
+  }
+
+  photos(){
+    this.tabName="images";
+  }
+  about(){
+    this.tabName="about";
   }
 }

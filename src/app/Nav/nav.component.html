@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height:50px">
     <div class="container" >
         <button  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" *ngIf="userName!=''">
             <span class="navbar-toggler-icon" ></span>
         </button>
         <div class="navbar-collapse" id="navbarSupportedContent" >
@@ -10,17 +10,18 @@
                     <a class="nav-link active fw-bold" routerLink="/home" routerLinkActive="active">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" routerLink="/members" routerLinkActive="active">Matches</a>
+                    <a class="nav-link fw-bold" routerLink="/members" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Matches</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" routerLink="/lists" routerLinkActive="active">Lists</a>
+                    <a class="nav-link fw-bold" routerLink="/lists" routerLinkActive="active">Favourites</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold" routerLink="/messages" routerLinkActive="active">Messages</a>
                 </li>
             </ul>
         </div>
-        <div class="navbar-brand fw-bold text-center text-warning" routerLink="/home">Dating App</div>
+        <div class="navbar-brand fw-bold text-center text-warning" routerLink="/home"
+        [ngClass]="userName!=''?'bannerAdjuestmentlogin':'bannerAdjuestmentlogout'">Dating App</div>
     </div>
 
     <div class="dropdown" *ngIf="_loginService.currentUser$ | async" >

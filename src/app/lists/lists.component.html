@@ -4,12 +4,20 @@
 
 <div class="container mt-3">
     <div class="d-md-flex">
-        <button class="btn btn-primary" value="liked" #action1 (click)="loadLikes(action1.value)">
+        <button class="btn btn-danger" value="liked" #action1 (click)="loadLikes(action1.value)"
+        [ngClass]="{'active':action1.value==predicate}">
             Members I like
         </button>
-        <button class="btn btn-success" value="likedBy" #action2 (click)="loadLikes(action2.value)">
+        <button class="btn btn-danger" value="likedBy" #action2 (click)="loadLikes(action2.value)"
+        [ngClass]="{'active':action2.value==predicate}">
             Members liked me
         </button>
+    </div>
+    <div class="text-center fw-bolder text-primary mt-3" *ngIf="totalPages.length==0 && predicate==='liked'">
+        You didn't liked any one.
+    </div>
+    <div class="text-center fw-bolder text-primary mt-3" *ngIf="totalPages.length==0 && predicate!=='liked'">
+        No one liked you.
     </div>
     <div class="row mt-3">
         <div class="col-sm-auto" *ngFor="let member of members">

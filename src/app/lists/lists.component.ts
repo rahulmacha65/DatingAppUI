@@ -13,7 +13,7 @@ export class ListsComponent implements OnInit {
   members:Member[]=[];
   predicate:string="liked";
   pageNumber=1;
-  pageSize=4;
+  pageSize=10;
   pagination!:Pagination;
   totalPages:number[]=[];
   activePage:number=1;
@@ -31,8 +31,6 @@ export class ListsComponent implements OnInit {
       next:res =>{
         if(res.result && res.pagination){
           this.members = res.result;
-          console.log(this.members);
-          console.log(res.pagination);
           this.pagination = res.pagination;
           this.totalPages.splice(0);
           this.pagesCount();

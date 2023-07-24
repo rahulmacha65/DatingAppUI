@@ -1,1 +1,95 @@
-<p>messages works!</p>
+<div class="container" style="margin-top:80px">
+    <div class="d-md-flex">
+        <button class="btn btn-danger"
+         #unread value="Unread"
+         (click)="loadMessages(unread.value)"
+         [ngClass]="{'active':unread.value==container}"
+         
+        >
+        <i class="fa fa-envelope"></i>
+            Unread
+        </button>
+
+        <button class="btn btn-danger"
+         #inbox value="Inbox"
+         (click)="loadMessages(inbox.value)"
+         [ngClass]="{'active':inbox.value==container}"
+        >
+        <i class="fa fa-envelope-open"></i>
+            Inbox
+        </button>
+
+        <button class="btn btn-danger"
+         #outbox value="Outbox"
+         (click)="loadMessages(outbox.value)"
+         [ngClass]="{'active':outbox.value==container}"
+        >
+        <i class="fa fa-paper-plane"></i>
+            Outbox
+        </button>
+    </div>
+
+    <div class="row" *ngIf="!messages || messages.length===0">
+        <h4 class="fw-bolder mt-3">You read all Messages...</h4>
+    </div>
+    <div class="row" *ngIf="messages && messages.length>0">
+        <table class="table table-hover" style="cursor: pointer;">
+            <thead>
+                <tr>
+                    <th style="width:40%">Message</th>
+                    <th style="width:20%" *ngIf="container=='Inbox'">From</th>
+                    <th style="width:20%" *ngIf="container=='Outbox'">To</th>
+                    <th style="width:30%" *ngIf="container=='Outbox'">Sent</th>
+                    <th style="width:30%" *ngIf="container=='Inbox'">Received</th>
+                    <th style="width:10%"></th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                <tr *ngFor="let message of messages"
+                    routerLink="{{container==='Outbox'?
+                    '/members/'+message.recipientName:
+                    '/members/'+message.senderUserName}}"
+                    [queryParams]="{tab:'message'}"
+                >
+                    <td>{{message.content}}</td>
+                    <td>
+                        <div *ngIf="container==='Outbox'">
+                            <img class="img-circle rounded-circle me-2"
+                            src="{{message.recipientPhotoUrl || './assets/user.png'}}" 
+                            alt="recipient photo">
+                            <strong>{{message.recipientName | titlecase}}</strong>
+                        </div>
+                        <div *ngIf="container!=='Outbox'">
+                            <img class="img-circle rounded-circle me-2"
+                            src="{{message.senderPhotoUrl || './assets/user.png'}}" 
+                            alt="recipient photo">
+                            <strong>{{message.senderUserName | titlecase}}</strong>
+                        </div>
+                    </td>
+                    <td>{{message.messageSent |date:'medium'}}</td>
+                    <td>
+                        <button class="btn btn-danger" (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav *ngIf="totalPages.length>0">
+            <ul class="pagination pagination-md justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" aria-label="Previous" (click)="pageChanged(activePage-1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" aria-current="page" *ngFor="let num of totalPages"
+                    [ngClass]="activePage==num?'active':''">
+                    <a class="page-link" (click)="pageChanged(num)">{{num}}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" aria-label="Next" (click)="pageChanged(activePage+1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

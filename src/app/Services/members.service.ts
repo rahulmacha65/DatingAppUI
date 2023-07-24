@@ -7,6 +7,7 @@ import { PaginatedResult } from '../Models/Pagination';
 import { UserParams } from '../Models/userParams';
 import { AccountService } from './account.service';
 import { IUser } from '../Models/User';
+import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class MembersService {
 
   constructor(private _http:HttpClient,private _accountService:AccountService) 
   { 
-    this._accountService.currentUser$.pipe(take(1)).subscribe({
+    this._accountService.currentUser$.subscribe({
       next:user =>{
         if(user){
           this.userParams =new UserParams(user);
@@ -57,9 +58,9 @@ export class MembersService {
 
     if(response) return of(response);
 
-    let  params = this.getPaginationHeaders(userParams);
+    let  params = getPaginationHeaders(userParams);
     
-    return this.getPaginatedResult<Member[]>(this.baseUrl+'Users',params).pipe(
+    return getPaginatedResult<Member[]>(this.baseUrl+'Users',params,this._http).pipe(
       map(response =>{
         this.memberCache.set(Object.values(userParams).join('-'),response);
         
@@ -96,36 +97,8 @@ export class MembersService {
   getLike(predicate:string,pageNumber:number,pageSize:number):Observable<PaginatedResult<Member[]>>{
     this.userParams.pageNumber = pageNumber;
     this.userParams.pageSize = pageSize;
-    let params = this.getPaginationHeaders(this.userParams);
+    let params = getPaginationHeaders(this.userParams);
     params = params.append('Perdicate',predicate);
-    return this.getPaginatedResult<Member[]>(this.baseUrl+'likes',params);
-  }
-
-  private getPaginatedResult<T>(url:string,params:HttpParams){
-    const paginationResults:PaginatedResult<T>=new PaginatedResult<T>;
-    return this._http.get<T>(url,{observe:'response',params}).pipe(
-      map(response =>{
-        if(response.body){
-          paginationResults.result = response.body;
-          
-        }
-        const pagination = response.headers.get('Pagination');
-        if(pagination){
-          paginationResults.pagination = JSON.parse(pagination);
-        }
-        return paginationResults;
-      })
-    )
-  }
-
-  private getPaginationHeaders(userParams:UserParams){
-    let params = new HttpParams();
-    params = params.append('pageNumber',userParams.pageNumber);
-    params = params.append('pageSize',userParams.pageSize);
-    params = params.append('minAge',userParams.minAge);
-    params = params.append('maxAge',userParams.maxAge);
-    params = params.append('gender',userParams.gender);
-    params = params.append('orderBy',userParams.orderBy);
-    return params;
+    return getPaginatedResult<Member[]>(this.baseUrl+'likes',params,this._http);
   }
 }

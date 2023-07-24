@@ -18,17 +18,17 @@
                 </div>
                 <div>
                     <strong>Last active:</strong>
-                    <p>{{member.lastActive | date}}</p>
+                    <p>{{member.lastActive +'Z' | date}}</p>
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{member.created |date }}</p>
+                    <p>{{member.created+'Z' |date }}</p>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="btn-group d-flex">
                     <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-success">Message</button>
+                    <button class="btn btn-success" (click)="messageTab()">Message</button>
                 </div>
             </div>
         </div>
@@ -36,35 +36,36 @@
     <div class="col-8 p-0">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-                    role="tab" aria-controls="home" aria-selected="true">Description</button>
+                <button class="nav-link" [ngClass]="{'active':tabName=='about'}" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                    role="tab" aria-controls="home" aria-selected="true" (click)="about()">About {{member.knownAs}}</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
-                    role="tab" aria-controls="profile" aria-selected="false">Interests</button>
+                <button class="nav-link" id="profile-tab" [ngClass]="{'active':tabName=='interests'}" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+                    role="tab" aria-controls="profile" (click)="interests()" aria-selected="false">Interests</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
-                    role="tab" aria-controls="contact" aria-selected="false">Photos</button>
+                <button class="nav-link" id="contact-tab" [ngClass]="{'active':tabName=='images'}" data-bs-toggle="tab" data-bs-target="#contact" type="button"
+                    role="tab" aria-controls="contact" (click)="photos()" aria-selected="false">Photos</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#message" type="button"
+                <button class="nav-link" [ngClass]="{'active':tabName=='message'}" id="contact-tab" data-bs-toggle="tab" data-bs-target="#message" type="button"
                     role="tab" aria-controls="message" aria-selected="false">Message</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade" [ngClass]="{'show active':tabName=='about'}" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h4>Description</h4>
                 {{member.introduction}}
                 <h4>Looking for</h4>
                 <p>{{member.lookingFor}}</p>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">{{member.interests}}
+            <div class="tab-pane fade" [ngClass]="{'show active':tabName=='interests'}"  id="profile" role="tabpanel" aria-labelledby="profile-tab">{{member.interests}}
             </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade" [ngClass]="{'show active':tabName=='images'}"  id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </div>
-            <div class="tab-pane fade" id="message" role="tabpanel" aria-labelledby="message-tab">Messages will go here.
+            <div class="tab-pane fade" [ngClass]="{'show active':tabName=='message'}" id="message" role="tabpanel" aria-labelledby="message-tab" style="margin-top:-20px">
+                <app-member-messages [userName]="member.userName"></app-member-messages>
             </div>
         </div>
     </div>

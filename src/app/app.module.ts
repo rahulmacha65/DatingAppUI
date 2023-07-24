@@ -24,6 +24,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { PhotoEditorComponent } from './member/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MemberMessagesComponent } from './member/member-messages/member-messages.component';
 
 
 
@@ -43,6 +44,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     ServerErrorComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    MemberMessagesComponent,
   ],
   imports: [
     BrowserModule,

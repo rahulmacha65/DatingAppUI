@@ -32,6 +32,7 @@ export class NavComponent implements OnInit,DoCheck {
 
   
   logout(){
+    this.userName="";
     this._loginService.userLogout();
     this.route.navigateByUrl("/home");
   }
