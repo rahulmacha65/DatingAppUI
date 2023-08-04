@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <input class="form-control" name="confirmPassword" [(ngModel)]="registerModel.confirmPassword"
-                        placeholder="Confirm password" required minlength="4" #confirmPassword="ngModel"
+                    <input class="form-control" name="confirmPassword" [(ngModel)]="registerModel.confirmPassword" type="password"
+                        placeholder="Confirm password" required minlength="4" maxlength="8" #confirmPassword="ngModel"
                         (keyup)="matchPassword(registerModel.confirmPassword,registerModel.password)">
                     <div class="text-danger" *ngIf="customValidation">
                         <sup>*</sup> Password should match.

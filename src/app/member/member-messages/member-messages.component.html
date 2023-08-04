@@ -11,14 +11,14 @@
                         alt="image of user" class="rounded-circle">
                     </span>
                     <div class="chat-body">
-                        <p>{{message.content}}</p>
+                        <p class="content" [ngClass]="message.senderUserName==userName?'text-start':'text-end'">{{message.content}}</p>
                         <div class="header">
                             <small class="text-muted">
-                                <span class="fa fa-clock-o">{{message.messageSent +'Z' | date:'medium'}}</span>
+                                <span class="fa fa-clock-o text-warning">sent {{message.messageSent | date:'medium'}}</span>
                                 <span class="text-danger" *ngIf="!message.dateRead && message.senderUserName!==userName">
                                     (unread)
                                 </span>
-                                <span class="text-success" *ngIf="message.dateRead + 'Z' && message.senderUserName!==userName">
+                                <span class="text-success" *ngIf="message.dateRead && message.recipientName!==userName">
                                     (read {{message.dateRead | date:'medium'}})
                                 </span>
                             </small>
