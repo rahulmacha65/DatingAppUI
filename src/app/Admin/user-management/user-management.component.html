@@ -1,0 +1,45 @@
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:30%">UserName</th>
+                <th style="width:40%">Active Role</th>
+                <th style="width:30%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.userName}}</td>
+                <td>{{user.roles}}</td>
+                <td><button class="btn btn-info" type="button"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editUserRole(user)">Edit Roles</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="selectedUser" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Roles of {{selectedUser.userName}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #rolesForm="ngForm" id="rolesForm" (ngSubmit)="updateUserRoles()">
+                <div class="form-check" *ngFor="let role of availableRoles">
+                    <input type="checkbox" class="from-check-input"
+                    [checked]="(selectedUser.roles.includes(role))"
+                    [disabled]="userName==='admin' && role.includes('Admin')"
+                    [value]="role" (change)="checkBoxcheckedorUnchecked($event)"
+                    >
+                    <label>{{role}}</label>
+                </div>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" Form="rolesForm" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

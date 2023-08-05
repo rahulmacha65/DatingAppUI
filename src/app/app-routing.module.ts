@@ -13,6 +13,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { PreventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.guard';
+import { AdminPanelComponent } from './Admin/admin-panel/admin-panel.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -42,6 +44,10 @@ const routes: Routes = [
   },
   {
     path:'member/edit',component:MemberEditComponent,canDeactivate:[PreventUnsavedChangesGuard]
+  },
+  {
+    path:'admin',component:AdminPanelComponent,
+    canActivate:[AdminGuard]
   },
   {
     path:'error',component:ErrorsComponent

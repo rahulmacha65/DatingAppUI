@@ -25,6 +25,10 @@ import { MemberEditComponent } from './member-edit/member-edit.component';
 import { PhotoEditorComponent } from './member/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MemberMessagesComponent } from './member/member-messages/member-messages.component';
+import { AdminPanelComponent } from './Admin/admin-panel/admin-panel.component';
+import { HadRoleDirective } from './Directives/had-role.directive';
+import { UserManagementComponent } from './Admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './Admin/photo-management/photo-management.component';
 
 
 
@@ -45,6 +49,10 @@ import { MemberMessagesComponent } from './member/member-messages/member-message
     MemberEditComponent,
     PhotoEditorComponent,
     MemberMessagesComponent,
+    AdminPanelComponent,
+    HadRoleDirective,
+    UserManagementComponent,
+    PhotoManagementComponent,
   ],
   imports: [
     BrowserModule,

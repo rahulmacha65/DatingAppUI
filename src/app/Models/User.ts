@@ -4,4 +4,5 @@ export class IUser{
     photoUrl!:string;
     knownAs!:string;
     gender!:string;
+    roles!:string[];
 }

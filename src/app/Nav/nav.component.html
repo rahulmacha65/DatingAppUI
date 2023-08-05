@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link fw-bold" routerLink="/messages" routerLinkActive="active">Messages</a>
                 </li>
+                <li *appHadRole="['Admin','Moderator']" class="nav-item" >
+                    <a class="nav-link fw-bold" routerLink="/admin" routerLinkActive="active">Admin</a>
+                </li>
             </ul>
         </div>
         <div class="navbar-brand fw-bold text-center text-warning" routerLink="/home"
