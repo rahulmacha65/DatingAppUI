@@ -4,6 +4,7 @@ import { Member } from 'src/app/Models/Member';
 import { Pagination } from 'src/app/Models/Pagination';
 import { IUser } from 'src/app/Models/User';
 import { UserParams } from 'src/app/Models/userParams';
+import { PresenceService } from 'src/app/Service/presence.service';
 import { AccountService } from 'src/app/Services/account.service';
 import { MembersService } from 'src/app/Services/members.service';
 
@@ -25,7 +26,7 @@ export class MemberListComponent implements OnInit {
   likedError:boolean=false;
   likedUserName:string="";
 
-  constructor(private memberService:MembersService) 
+  constructor(private memberService:MembersService,public presenceService:PresenceService) 
   { 
     this.userParams = this.memberService.getUserParams();
   }

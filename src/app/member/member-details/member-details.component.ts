@@ -1,23 +1,38 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/Models/Member';
+import { IUser } from 'src/app/Models/User';
+import { PresenceService } from 'src/app/Service/presence.service';
+import { AccountService } from 'src/app/Services/account.service';
 import { MembersService } from 'src/app/Services/members.service';
+import { MessagesService } from 'src/app/Services/messages.service';
 
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
   styleUrls: ['./member-details.component.css']
 })
-export class MemberDetailsComponent implements OnInit {
+export class MemberDetailsComponent implements OnInit,OnDestroy {
 
   member!:Member;
   galleryOptions:NgxGalleryOptions[]=[];
   galleryImages:NgxGalleryImage[]=[]
   spinner:boolean=true;
-  tabName:string="about"
+  tabName:string="about";
+  user?:IUser;
 
-  constructor(private memberService:MembersService,private route:ActivatedRoute) { }
+  constructor(private memberService:MembersService,private route:ActivatedRoute,public presenceServce:PresenceService,
+    private messageService:MessagesService,private accountService:AccountService) 
+    {
+      this.accountService.currentUser$.subscribe({
+        next:user=>{
+          if(user){
+            this.user = user;
+          }
+        }
+      })
+    }
 
   ngOnInit(): void {
     this.loadMember();
@@ -39,6 +54,10 @@ export class MemberDetailsComponent implements OnInit {
         preview:false
       }
     ]
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
   }
 
   loadMember(){
@@ -71,16 +90,23 @@ export class MemberDetailsComponent implements OnInit {
 
   messageTab(){
     this.tabName="message";
+    if(this.user)
+    {
+      this.messageService.createHubConnection(this.user,this.member.userName);
+    }
   }
 
   interests(){
     this.tabName="interests";
+    this.messageService.stopHubConnection();
   }
 
   photos(){
     this.tabName="images";
+    this.messageService.stopHubConnection();
   }
   about(){
     this.tabName="about";
+    this.messageService.stopHubConnection();
   }
 }

@@ -8,6 +8,9 @@
             <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
+                <div class="mb-2" *ngIf="(presenceServce.onlineUsers$ | async)?.includes(member.userName)">
+                    <i class="class fa fa-user-circle text-success"></i>Online now
+                </div>
                 <div>
                     <strong>Location:</strong>
                     <p>{{member.city}}, {{member.country}}</p>
@@ -49,7 +52,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" [ngClass]="{'active':tabName=='message'}" id="contact-tab" data-bs-toggle="tab" data-bs-target="#message" type="button"
-                    role="tab" aria-controls="message" aria-selected="false">Message</button>
+                    role="tab" aria-controls="message" aria-selected="false" (click)="messageTab()">Message</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -64,7 +67,7 @@
             <div class="tab-pane fade" [ngClass]="{'show active':tabName=='images'}"  id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </div>
-            <div class="tab-pane fade" [ngClass]="{'show active':tabName=='message'}" id="message" role="tabpanel" aria-labelledby="message-tab" style="margin-top:-20px">
+            <div class="tab-pane fade " [ngClass]="{'show active':tabName=='message'}" id="message" role="tabpanel" aria-labelledby="message-tab" style="margin-top:-20px">
                 <app-member-messages [userName]="member.userName"></app-member-messages>
             </div>
         </div>

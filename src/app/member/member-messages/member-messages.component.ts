@@ -11,10 +11,10 @@ import { MessagesService } from 'src/app/Services/messages.service';
 export class MemberMessagesComponent implements OnInit {
   @Input() userName?:string;
   @ViewChild('messageThread') messageForm?:NgForm
-  messages:Message[]=[];
+  // messages:Message[]=[];
   messageContent:string='';
   
-  constructor(private _messageService:MessagesService) { }
+  constructor(public _messageService:MessagesService) { }
 
   ngOnInit(): void {
     this.loadMessages();
@@ -24,8 +24,8 @@ export class MemberMessagesComponent implements OnInit {
     if(this.userName){
       this._messageService.getMessageThread(this.userName).subscribe({
         next:messages=>{
-          this.messages=messages;
-          console.log(this.messages);
+          // this.messages=messages;
+          // console.log(this.messages);
         }
       })
     }
@@ -33,11 +33,14 @@ export class MemberMessagesComponent implements OnInit {
 
   sendMessage(){
     if(!this.userName) return;
-    this._messageService.sendMessage(this.userName,this.messageContent).subscribe({
-      next:message=>{
-        this.messages.push(message);
-        this.messageForm?.reset();
-      }
+    this._messageService.sendMessage(this.userName,this.messageContent).then(()=>{
+      this.messageForm?.reset();
     })
+    // this._messageService.sendMessage(this.userName,this.messageContent).subscribe({
+    //   next:message=>{
+    //     // this.messages.push(message);
+    //     this.messageForm?.reset();
+    //   }
+    // })
   }
 }
