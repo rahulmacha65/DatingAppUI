@@ -6,19 +6,19 @@
         <ul *ngIf="(_messageService.messageThread$ | async)!.length>0" class="chat">
             <li *ngFor="let message of _messageService.messageThread$ | async">
                 <div>
-                    <span class="chat-img" [ngClass]="message.senderUserName==userName?'float-end':'float-start'">
+                    <span class="chat-img" [ngClass]="message.senderUserName==userName?'float-start':'float-end'">
                         <img src="{{message.senderPhotoUrl || './assets/user.png'}}" 
                         alt="image of user" class="rounded-circle">
                     </span>
                     <div class="chat-body">
-                        <p class="content" [ngClass]="message.senderUserName==userName?'text-start':'text-end'">{{message.content}}</p>
+                        <p class="content" [ngClass]="message.senderUserName==userName?'text-end':'text-start'">{{message.content}}</p>
                         <div class="header">
                             <small class="text-muted">
                                 <span class="fa fa-clock-o text-warning">sent {{message.messageSent | date:'medium'}}</span>
                                 <span class="text-danger" *ngIf="!message.dateRead && message.senderUserName!==userName">
                                     (unread)
                                 </span>
-                                <span class="text-success" *ngIf="message.dateRead && message.recipientName!==userName">
+                                <span class="text-success" *ngIf="message.dateRead && message.senderUserName!==userName">
                                     (read {{message.dateRead | date:'medium'}})
                                 </span>
                             </small>

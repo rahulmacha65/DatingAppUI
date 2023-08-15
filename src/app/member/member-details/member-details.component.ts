@@ -68,6 +68,7 @@ export class MemberDetailsComponent implements OnInit,OnDestroy {
         this.member=res;
         this.galleryImages = this.getImages();
         this.spinner=false;
+        this.messageTab();
       },
       error:(err)=>{
         this.spinner=false;

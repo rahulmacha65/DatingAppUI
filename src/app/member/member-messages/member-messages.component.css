@@ -20,9 +20,10 @@
 
 @media (max-height:800px){
     .card{
-        height: 90vh;
+        height: 70vh;
     }
 }
+
 .content{
     background: lightblue;
     padding: 10px;
